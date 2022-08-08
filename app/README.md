@@ -1,3 +1,7 @@
+# About
+
+Example ToDo App (React)
+
 ### Includes packages
 
 - typescript
@@ -10,7 +14,7 @@
 - yup
 - prettier
 - eslint
-- redux
+- react
 - redux-toolkit
 
 ### Links
