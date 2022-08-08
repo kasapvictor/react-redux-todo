@@ -1,0 +1,17 @@
+.meta {
+  opacity: .5;
+  font-weight: 100;
+}
+
+.meta__item {
+  @include px($size: 4);
+  border-right: 1px solid $color1;
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    border-right: none;
+  }
+}

@@ -1,0 +1,56 @@
+/* COLORS */
+$color1: #232323;
+$color2: #ffffff;
+$color3: #0061df;
+$color4: #4ed192;
+$color5: #df0000;
+$color6: #FF6347FF;
+$colorMute: lighten($color1, 50);
+
+/* PADDING & MARGIN FACTOR */
+$factor: .4rem;
+
+/* FONTS COLOR*/
+$fontColorDefault: $color1;
+
+/* FONTS SIZE */
+$fontSizeDefault: 1.6rem;
+$fontSize: 1.8rem;
+$fontSizeH1: 4.4rem;
+$fontSizeH2: 3.8rem;
+$fontSizeH3: 3rem;
+$fontSizeH4: 2.8rem;
+$fontSizeH5: 2.2rem;
+$fontSizeSmall: 1.2rem;
+$fontSizeMedium: 1.8rem;
+$fontSizeBig: 2rem;
+
+/* LINE HEIGHT */
+$lineHeightDefault: 1.5;
+
+/* BORDER */
+$borderRadiusDefault: .4rem;
+$borderColorDefault: lighten($color1, 50);
+$borderColorActiveDefault: lighten($color3, 10);
+
+/* FIELD */
+$formFieldBorderColor: $borderColorDefault;
+$formFieldBorderColorActive: $borderColorActiveDefault;
+$formFieldBorderRadius: $borderRadiusDefault;
+
+/* BUTTON */
+$buttonBorderColor: $color3;
+$buttonBorderColorActive: $color1;
+$buttonBorderColorDisabled: lighten($color1, 50);
+$buttonBorderRadius: $borderRadiusDefault;
+$buttonBackgroundColor: $color3;
+$buttonBackgroundColorHover: $color2;
+$buttonBackgroundColorActive: $color1;
+$buttonBackgroundColorDisabled: lighten($color1, 50);
+$buttonColorText: $color2;
+$buttonColorTextHover: $color3;
+$buttonColorTextActive: $color2;
+$buttonColorTextDelete: $color6;
+$buttonBackgroundColorDelete: $color6;
+$buttonBorderColorDelete: $color6;
+

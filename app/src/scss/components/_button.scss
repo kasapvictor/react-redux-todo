@@ -1,0 +1,38 @@
+.button {
+  display: inline-block;
+  @include py($size: 3);
+  @include px($size: 10);
+  border: 1px solid $buttonBorderColor;
+  border-radius: $buttonBorderRadius;
+  background-color: $buttonBackgroundColor;
+  color: $buttonColorText;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $buttonBackgroundColorHover;
+    color: $buttonColorTextHover;
+  }
+
+  &:active {
+    background-color: $buttonBackgroundColorActive;
+    color: $buttonColorTextActive;
+    border-color: $buttonBorderColorActive;
+  }
+
+  &:disabled {
+    background-color: $buttonBackgroundColorDisabled;
+    color: $buttonColorTextActive;
+    border-color: $buttonBorderColorDisabled;
+    cursor: not-allowed;
+  }
+}
+
+.button--delete {
+  background-color: $buttonBackgroundColorDelete;
+  border-color: $buttonBorderColorDelete;
+
+  &:hover {
+    background-color: $buttonBackgroundColorHover;
+    color: $buttonColorTextDelete;
+  }
+}
