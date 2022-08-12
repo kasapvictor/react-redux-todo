@@ -1,4 +1,4 @@
-.error__message {
+.errorMessage {
   @include p($size: 5);
   border-radius: $borderRadiusDefault;
   background-color: $backgroundColorErrorMessage;

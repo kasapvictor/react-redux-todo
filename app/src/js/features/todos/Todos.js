@@ -4,48 +4,59 @@ import classNames from 'classnames';
 
 import { Spinner } from '../../components/Spinner';
 
-import { fetchTodos, selectTodoById, selectTodosIds } from './todoSlice';
+import { fetchTodos, updateTodo, selectTodoById, selectTodosIds, resetUpdatingStatus } from './todoSlice';
 
 const TodoItem = ({ todoId }) => {
+  const dispatch = useDispatch();
+
+  const todoStatusUpdate = useSelector((state) => state.todos.statusUpdate);
   const todo = useSelector((state) => selectTodoById(state, todoId));
-  const { todo: name, completed } = todo;
+  const { todo: name, completed, userId } = todo;
 
   const classNameTodo = classNames('todo', {
     todoCompleted: completed,
   });
-
   const classNameTodoName = classNames('todoName', {
     todoNameCompleted: completed,
   });
+  const classNameTodoCheckbox = classNames('todoCheckBox', {
+    todoCheckBoxCompleted: completed,
+  });
 
-  const handleCompleted = (id) => () => {
-    console.log('ID', id);
+  const handleCompleted = () => {
+    const result = dispatch(updateTodo({ id: todoId, todo: name, userId, completed: !completed })).unwrap();
+
+    result.then((data) => {
+      dispatch(resetUpdatingStatus());
+    });
   };
-
-  console.log('todo', todo);
 
   return (
     <li className={classNameTodo}>
       <div className="todoBody">
-        <div className="todoCheckBox">
-          <label htmlFor={`todo-checkbox-${todoId}`}>
-            <span>lklklk</span>
+        <div className="todoCheckBoxWrapper">
+          <label className={classNameTodoCheckbox} htmlFor={`todo-checkbox-${todoId}`}>
             <input
               type="checkbox"
               className="todoCheckBoxInput"
               id={`todo-checkbox-${todoId}`}
               checked={completed}
-              onChange={handleCompleted(todoId)}
+              onChange={handleCompleted}
             />
           </label>
         </div>
         <div className={classNameTodoName}>{name}</div>
+        <div className="todoRemoveWrapper">
+          <button className="todoRemove">
+            <span className="textHide">Remove</span>
+          </button>
+        </div>
       </div>
 
       <div className="todoFooter">
         <div className="meta todoMeta">
-          <span className="text--small meta__item">ID: {todoId}</span>
-          <span className="text--small meta__item">USER ID: {todo.userId}</span>
+          <span className="textSmall metaItem">ID: {todoId}</span>
+          <span className="textSmall metaItem">USER ID: {todo.userId}</span>
         </div>
       </div>
     </li>
@@ -73,7 +84,7 @@ export const Todos = () => {
 
   return (
     <section className="todos">
-      {todoStatus === 'failed' && <div className="error__message">{todosError}</div>}
+      {todoStatus === 'failed' && <div className="errorMessage">{todosError}</div>}
       {todoStatus === 'loading' && <Spinner text="Loading..." />}
       {todoStatus === 'succeeded' && (
         <ul className="todoList">

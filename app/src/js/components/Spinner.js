@@ -6,7 +6,7 @@ export const Spinner = ({ text = '', size = '5rem' }) => {
   return (
     <div className="spinner">
       {header}
-      <span className="spinner__loader loader" style={{ height: size, width: size }} />
+      <span className="spinnerLoader loader" style={{ height: size, width: size }} />
     </div>
   );
 };

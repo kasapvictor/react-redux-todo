@@ -1,17 +1,17 @@
-.form__row {
+.formRow {
   @include pb($size: 4);
 }
 
-.form__label {
+.formLabel {
   display: flex;
   flex-direction: column;
 }
 
-.form__label-name {
+.formLabel-name {
   @include pb($size: 2);
 }
 
-.form__field {
+.formField {
   @include py($size: 3);
   @include px($size: 5);
   border: 1px solid $formFieldBorderColor;
@@ -22,6 +22,6 @@
   }
 }
 
-.form__buttons {
+.formButtons {
   padding-bottom: 20px;
 }

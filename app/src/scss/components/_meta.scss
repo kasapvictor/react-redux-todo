@@ -3,7 +3,7 @@
   font-weight: 100;
 }
 
-.meta__item {
+.metaItem {
   @include px($size: 4);
   border-right: 1px solid $color1;
 

@@ -7,8 +7,8 @@
 }
 
 .todoCompleted {
-  border: 1px solid lighten($successColor, 10);
-  background-color: lighten($successColor, 30);
+  border: 1px solid lighten($colorSuccess, 10);
+  background-color: lighten($colorSuccess, 35);
 }
 
 .todoNameCompleted {
@@ -18,4 +18,55 @@
 
 .todoBody {
   display: flex;
+  align-items: center;
+}
+
+.todoCheckBoxWrapper {
+  @include mr($size: 4)
+}
+
+.todoCheckBox {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid lighten($colorError, 10);
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $colorSuccess;
+    background-color: lighten($colorSuccess, 20);
+  }
+}
+
+.todoCheckBoxCompleted {
+  border-color: $colorSuccess;
+  background-color: lighten($colorSuccess, 20);
+}
+
+.todoRemoveWrapper {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  border-radius: 50%;
+  border: 1px solid lighten($colorError, 20);;
+  background-color: lighten($colorError, 50);
+  opacity: .5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.todoRemove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 21px;
+  height: 21px;
+  position: relative;
+  color: $colorError;
+  cursor: pointer;
+  opacity: .5;
+  cursor: pointer;
 }
