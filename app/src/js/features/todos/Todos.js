@@ -26,7 +26,7 @@ const TodoItem = ({ todoId }) => {
   const handleCompleted = () => {
     const result = dispatch(updateTodo({ id: todoId, todo: name, userId, completed: !completed })).unwrap();
 
-    result.then((data) => {
+    result.then(() => {
       dispatch(resetUpdatingStatus());
     });
   };
