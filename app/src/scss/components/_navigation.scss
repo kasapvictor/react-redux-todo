@@ -4,13 +4,13 @@
 }
 
 .navigation__link {
-  color: $colorNavigationLink;
+  color: $colorLink;
 
   &:hover {
-    color: $colorNavigationLinkHover;
+    color: $colorLinkHover;
   }
 
   &.active {
-    color:   $colorNavigationLinkActive;
+    color:   $colorLinkActive;
   }
 }

@@ -1,0 +1,21 @@
+.todo {
+  @include p($size: 3);
+  @include mb($size: 4);
+  border: 1px solid $borderColorDefault;
+  border-radius: $borderRadiusDefault;
+  background-color: $color2;
+}
+
+.todoCompleted {
+  border: 1px solid lighten($successColor, 10);
+  background-color: lighten($successColor, 30);
+}
+
+.todoNameCompleted {
+  text-decoration: line-through;
+  opacity: .5;
+}
+
+.todoBody {
+  display: flex;
+}

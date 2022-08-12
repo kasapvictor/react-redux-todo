@@ -10,7 +10,7 @@ $colorMute: lighten($color1, 50);
 /* PADDING & MARGIN FACTOR */
 $factor: .4rem;
 
-/* FONTS COLOR*/
+/* FONTS COLOR */
 $fontColorDefault: $color1;
 
 /* FONTS SIZE */
@@ -43,14 +43,27 @@ $buttonBorderColor: $color3;
 $buttonBorderColorActive: $color1;
 $buttonBorderColorDisabled: lighten($color1, 50);
 $buttonBorderRadius: $borderRadiusDefault;
+
 $buttonBackgroundColor: $color3;
 $buttonBackgroundColorHover: $color2;
 $buttonBackgroundColorActive: $color1;
 $buttonBackgroundColorDisabled: lighten($color1, 50);
+
 $buttonColorText: $color2;
 $buttonColorTextHover: $color3;
 $buttonColorTextActive: $color2;
+
 $buttonColorTextDelete: $color6;
 $buttonBackgroundColorDelete: $color6;
 $buttonBorderColorDelete: $color6;
 
+/* LINK */
+$colorLink: $color3;
+$colorLinkHover: $color5;
+$colorLinkActive: $color5;
+
+/* ERROR */
+$backgroundColorErrorMessage: lighten($color5, 50);
+
+/* SUCCESS */
+$successColor: $color4;
