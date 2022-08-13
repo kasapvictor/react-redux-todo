@@ -1,6 +1,6 @@
 # About
 
-Example ToDo App (React)
+Example ToDo App (React, Redux)
 
 ### Includes packages
 
