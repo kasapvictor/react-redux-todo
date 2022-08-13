@@ -60,19 +60,12 @@ const todosSlice = createSlice({
     },
     filterClear: (state) => {
       state.filteredBy = FILTERED_BY_ALL;
-      state.filteredTodosIds = [];
     },
     filterByActive: (state) => {
       state.filteredBy = FILTERED_BY_ACTIVE;
-      state.filteredTodosIds = Object.values(state.entities)
-        .filter((todo) => !todo.completed)
-        .map(({ id }) => id);
     },
     filteredByCompleted: (state) => {
       state.filteredBy = FILTERED_BY_COMPLETED;
-      state.filteredTodosIds = Object.values(state.entities)
-        .filter((todo) => todo.completed)
-        .map(({ id }) => id);
     },
   },
   extraReducers(builder) {

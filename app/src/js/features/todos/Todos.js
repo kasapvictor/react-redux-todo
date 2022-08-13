@@ -18,6 +18,15 @@ import {
   filteredByCompleted,
 } from './todoSlice';
 
+const IDLE_STATUS = 'idle';
+const LOADING_STATUS = 'loading';
+const SUCCESS_STATUS = 'succeeded';
+const FAILED_STATUS = 'failed';
+
+const FILTERED_BY_ALL = 'all';
+const FILTERED_BY_ACTIVE = 'active';
+const FILTERED_BY_COMPLETED = 'completed';
+
 const TodosFilter = () => {
   const dispatch = useDispatch();
   const filteredBy = useSelector((state) => state.todos.filteredBy);
@@ -33,13 +42,13 @@ const TodosFilter = () => {
   };
 
   const classNameFilterButtonClear = classNames('button todoClearedButton', {
-    todoClearedButtonActive: filteredBy === 'all',
+    todoClearedButtonActive: filteredBy === FILTERED_BY_ALL,
   });
   const classNameFilterButtonActive = classNames('button todoActiveButton', {
-    todoActiveButtonActive: filteredBy === 'active',
+    todoActiveButtonActive: filteredBy === FILTERED_BY_ACTIVE,
   });
   const classNameFilterButtonCompleted = classNames('button todoCompletedButton', {
-    todoCompletedButtonActive: filteredBy === 'completed',
+    todoCompletedButtonActive: filteredBy === FILTERED_BY_COMPLETED,
   });
 
   return (
@@ -65,7 +74,7 @@ const TodoName = ({ todo }) => {
   const updatingStatus = useSelector((state) => state.todos.statusUpdate);
 
   const [name, setName] = useState(todoName);
-  const [statusChange, setStatusChange] = useState('idle');
+  const [statusChange, setStatusChange] = useState(IDLE_STATUS);
 
   const inputNameRef = useRef(null);
 
@@ -91,7 +100,7 @@ const TodoName = ({ todo }) => {
   };
 
   const handleChangeNameSave = () => {
-    setStatusChange('idle');
+    setStatusChange(IDLE_STATUS);
     if (todoName !== name) {
       dispatchUpdateTodo();
     }
@@ -99,7 +108,7 @@ const TodoName = ({ todo }) => {
 
   const handleChangeNameSaveClick = ({ code, keyCode }) => {
     if (code === 'Enter' || keyCode === '13') {
-      setStatusChange('idle');
+      setStatusChange(IDLE_STATUS);
       if (todoName !== name) {
         dispatchUpdateTodo();
       }
@@ -114,7 +123,7 @@ const TodoName = ({ todo }) => {
 
   return (
     <>
-      {statusChange === 'editing' && updatingStatus === 'idle' && (
+      {statusChange === 'editing' && updatingStatus === IDLE_STATUS && (
         <input
           className="todoChangeInputName"
           type="text"
@@ -125,7 +134,7 @@ const TodoName = ({ todo }) => {
           ref={inputNameRef}
         />
       )}
-      {statusChange === 'idle' && (
+      {statusChange === IDLE_STATUS && (
         <div className={classNameTodoName} onClick={handleClickName}>
           {name}
         </div>
@@ -155,8 +164,8 @@ const TodoCompleteCheckbox = ({ todo }) => {
 
   return (
     <div className="todoCheckBoxWrapper">
-      {todoUpdatingCurrentId === todoId && todoStatusUpdate === 'loading' && <Spinner size="20px" />}
-      {(todoUpdatingCurrentId !== todoId || todoStatusUpdate === 'idle') && (
+      {todoUpdatingCurrentId === todoId && todoStatusUpdate === LOADING_STATUS && <Spinner size="20px" />}
+      {(todoUpdatingCurrentId !== todoId || todoStatusUpdate === IDLE_STATUS) && (
         <label className={classNameTodoCheckbox} htmlFor={`todo-checkbox-${todoId}`}>
           <input
             type="checkbox"
@@ -190,28 +199,41 @@ const TodoRemoveButton = ({ todoId }) => {
 };
 
 const TodoItem = ({ todoId }) => {
+  const filteredBy = useSelector((state) => state.todos.filteredBy);
   const todo = useSelector((state) => selectTodoById(state, todoId));
   const { completed } = todo;
+
+  const todoItem = {
+    all: todo,
+    active: !completed ? todo : null,
+    completed: completed ? todo : null,
+  };
+
+  const todoFiltered = todoItem[filteredBy];
 
   const classNameTodo = classNames('todo', {
     todoCompleted: completed,
   });
 
   return (
-    <li className={classNameTodo}>
-      <div className="todoBody">
-        <TodoCompleteCheckbox todo={todo} />
-        <TodoName todo={todo} />
-        <TodoRemoveButton todoId={todoId} />
-      </div>
+    <>
+      {todoFiltered && (
+        <li className={classNameTodo}>
+          <div className="todoBody">
+            <TodoCompleteCheckbox todo={todoFiltered} />
+            <TodoName todo={todoFiltered} />
+            <TodoRemoveButton todoId={todoId} />
+          </div>
 
-      <div className="todoFooter">
-        <div className="meta todoMeta">
-          <span className="textSmall metaItem">ID: {todoId}</span>
-          <span className="textSmall metaItem">USER ID: {todo.userId}</span>
-        </div>
-      </div>
-    </li>
+          <div className="todoFooter">
+            <div className="meta todoMeta">
+              <span className="textSmall metaItem">ID: {todoId}</span>
+              <span className="textSmall metaItem">USER ID: {todoFiltered.userId}</span>
+            </div>
+          </div>
+        </li>
+      )}
+    </>
   );
 };
 
@@ -237,16 +259,16 @@ export const Todos = () => {
   const todosError = useSelector((state) => state.todos.error);
 
   useEffect(() => {
-    if (todoStatus === 'idle') {
+    if (todoStatus === IDLE_STATUS) {
       dispatch(fetchTodos());
     }
   }, [todoStatus, dispatch]);
 
   return (
     <section className="todos">
-      {todoStatus === 'failed' && <div className="errorMessage">{todosError}</div>}
-      {todoStatus === 'loading' && <Spinner text="Loading..." />}
-      {todoStatus === 'succeeded' && (
+      {todoStatus === FAILED_STATUS && <div className="errorMessage">{todosError}</div>}
+      {todoStatus === LOADING_STATUS && <Spinner text="Loading..." />}
+      {todoStatus === SUCCESS_STATUS && (
         <div className="todosInner">
           <TodosFilter />
           <RenderTodos />
