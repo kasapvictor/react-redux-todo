@@ -13,7 +13,51 @@ import {
   selectTodosIds,
   resetUpdatingStatus,
   resetRemovingStatus,
+  filterClear,
+  filterByActive,
+  filteredByCompleted,
 } from './todoSlice';
+
+const TodosFilter = () => {
+  const dispatch = useDispatch();
+  const filteredBy = useSelector((state) => state.todos.filteredBy);
+
+  const handleFilterClear = () => {
+    dispatch(filterClear());
+  };
+  const handleFilterActive = () => {
+    dispatch(filterByActive());
+  };
+  const handleFilterComplete = () => {
+    dispatch(filteredByCompleted());
+  };
+
+  const classNameFilterButtonClear = classNames('button todoClearedButton', {
+    todoClearedButtonActive: filteredBy === 'all',
+  });
+  const classNameFilterButtonActive = classNames('button todoActiveButton', {
+    todoActiveButtonActive: filteredBy === 'active',
+  });
+  const classNameFilterButtonCompleted = classNames('button todoCompletedButton', {
+    todoCompletedButtonActive: filteredBy === 'completed',
+  });
+
+  return (
+    <div className="todosHeader">
+      <div className="todoFiltersButtons">
+        <button className={classNameFilterButtonClear} onClick={handleFilterClear}>
+          All
+        </button>
+        <button className={classNameFilterButtonActive} onClick={handleFilterActive}>
+          Active
+        </button>
+        <button className={classNameFilterButtonCompleted} onClick={handleFilterComplete}>
+          Completed
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const TodoName = ({ todo }) => {
   const dispatch = useDispatch();
@@ -176,7 +220,15 @@ const RenderTodos = () => {
   const filteredTodosIds = useSelector((state) => state.todos.filteredTodosIds);
   const ids = filteredTodosIds.length === 0 ? todosIds : filteredTodosIds;
 
-  return ids.map((todoId) => <TodoItem key={todoId} todoId={todoId} />);
+  return (
+    <div className="todosBody">
+      <ul className="todoList">
+        {ids.map((todoId) => (
+          <TodoItem key={todoId} todoId={todoId} />
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export const Todos = () => {
@@ -195,9 +247,10 @@ export const Todos = () => {
       {todoStatus === 'failed' && <div className="errorMessage">{todosError}</div>}
       {todoStatus === 'loading' && <Spinner text="Loading..." />}
       {todoStatus === 'succeeded' && (
-        <ul className="todoList">
+        <div className="todosInner">
+          <TodosFilter />
           <RenderTodos />
-        </ul>
+        </div>
       )}
     </section>
   );

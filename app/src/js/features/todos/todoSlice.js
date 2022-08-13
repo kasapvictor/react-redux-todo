@@ -10,6 +10,10 @@ const LOADING_STATUS = 'loading';
 const SUCCESS_STATUS = 'succeeded';
 const FAILED_STATUS = 'failed';
 
+const FILTERED_BY_ALL = 'all';
+const FILTERED_BY_ACTIVE = 'active';
+const FILTERED_BY_COMPLETED = 'completed';
+
 const todosAdapter = createEntityAdapter();
 const initialState = todosAdapter.getInitialState({
   statusFetch: IDLE_STATUS,
@@ -17,6 +21,7 @@ const initialState = todosAdapter.getInitialState({
   statusRemove: IDLE_STATUS,
   updatingTodoId: null,
   filteredTodosIds: [],
+  filteredBy: FILTERED_BY_ALL,
   error: null,
 });
 
@@ -52,6 +57,22 @@ const todosSlice = createSlice({
     },
     resetRemovingStatus: (state) => {
       state.statusRemove = IDLE_STATUS;
+    },
+    filterClear: (state) => {
+      state.filteredBy = FILTERED_BY_ALL;
+      state.filteredTodosIds = [];
+    },
+    filterByActive: (state) => {
+      state.filteredBy = FILTERED_BY_ACTIVE;
+      state.filteredTodosIds = Object.values(state.entities)
+        .filter((todo) => !todo.completed)
+        .map(({ id }) => id);
+    },
+    filteredByCompleted: (state) => {
+      state.filteredBy = FILTERED_BY_COMPLETED;
+      state.filteredTodosIds = Object.values(state.entities)
+        .filter((todo) => todo.completed)
+        .map(({ id }) => id);
     },
   },
   extraReducers(builder) {
@@ -112,7 +133,14 @@ export const {
   selectIds: selectTodosIds,
 } = todosAdapter.getSelectors((state) => state.todos);
 
-export const { todoUpdatingId, resetUpdatingStatus, resetRemovingStatus } = todosSlice.actions;
+export const {
+  todoUpdatingId,
+  resetUpdatingStatus,
+  resetRemovingStatus,
+  filterClear,
+  filterByActive,
+  filteredByCompleted,
+} = todosSlice.actions;
 
 export const selectTodosByUser = createSelector([selectAllTodos, (state, userId) => userId], (todos, userId) =>
   todos.filter((todo) => +todo.id === +userId),

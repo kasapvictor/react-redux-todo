@@ -6,6 +6,10 @@
   background-color: $color2;
 }
 
+.todosHeader {
+  @include pb($size: 5);
+}
+
 .todoCompleted {
   border: 1px solid lighten($colorSuccess, 10);
   background-color: lighten($colorSuccess, 35);
@@ -87,4 +91,73 @@
   border-bottom: 1px solid $color3;
   font-weight: 100;
   font-style: italic;
+}
+
+.todoFiltersButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.todoClearedButton {
+  background-color: lighten($color1, 50);
+  border-color: lighten($color1, 30);
+  &:hover {
+    color: $color1;
+  }
+  &:active {
+    color: $color2;
+  }
+}
+
+.todoClearedButtonActive {
+  background-color: $color2;
+  color: $color1;
+}
+
+.todoActiveButton {
+  background-color: $color6;
+  border-color: darken($color6, 15);
+  &:hover {
+    color: $color6;
+  }
+  &:active {
+    background-color: darken($color6, 20);
+    color: $color2;
+  }
+}
+
+.todoActiveButtonActive {
+  background-color: darken($color6, 20);
+  color: $color2;
+  &:hover {
+    background-color: darken($color6, 20);
+    color: $color2;
+  }
+}
+
+.todoCompletedButton {
+
+  background-color: $color4;
+  border-color: darken($color4, 15);
+  &:hover {
+    color: $color4;
+  }
+  &:active {
+    background-color: darken($color4, 20);
+    color: $color2;
+  }
+  &:hover {
+    background-color: darken($color4, 20);
+    color: $color2;
+  }
+}
+
+.todoCompletedButtonActive {
+  background-color: darken($color4, 20);
+  color: $color2;
+
+  &:hover {
+    background-color: darken($color4, 20);
+    color: $color2;
+  }
 }
