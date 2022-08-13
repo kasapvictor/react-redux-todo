@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
@@ -52,6 +52,64 @@ const TodoCompleteCheckbox = ({ todo }) => {
   );
 };
 
+const TodoName = ({ todo }) => {
+  const dispatch = useDispatch();
+  const { todo: todoName, completed } = todo;
+  const [name, setName] = useState(todoName);
+  const [statusChange, setStatusChange] = useState('idle');
+
+  const inputNameRef = useRef(null);
+
+  const classNameTodoName = classNames('todoName', {
+    todoNameCompleted: completed,
+  });
+
+  const handleChangeName = ({ target: { value } }) => {
+    setName(value);
+  };
+
+  const handleClickName = () => {
+    setStatusChange('editing');
+  };
+
+  const handleChangeNameSave = () => {
+    setStatusChange('idle');
+  };
+
+  const handleChangeNameSaveClick = ({ code, keyCode }) => {
+    if (code === 'Enter' || keyCode === '13') {
+      setStatusChange('idle');
+    }
+  };
+
+  useEffect(() => {
+    if (statusChange === 'editing') {
+      inputNameRef.current.select();
+    }
+  }, [statusChange]);
+
+  return (
+    <>
+      {statusChange === 'editing' && (
+        <input
+          className="todoChangeInputName"
+          type="text"
+          value={name}
+          onChange={handleChangeName}
+          onBlur={handleChangeNameSave}
+          onKeyDown={handleChangeNameSaveClick}
+          ref={inputNameRef}
+        />
+      )}
+      {statusChange === 'idle' && (
+        <div className={classNameTodoName} onClick={handleClickName}>
+          {name}
+        </div>
+      )}
+    </>
+  );
+};
+
 const TodoRemoveButton = ({ todoId }) => {
   const dispatch = useDispatch();
 
@@ -72,20 +130,17 @@ const TodoRemoveButton = ({ todoId }) => {
 
 const TodoItem = ({ todoId }) => {
   const todo = useSelector((state) => selectTodoById(state, todoId));
-  const { todo: name, completed } = todo;
+  const { completed } = todo;
 
   const classNameTodo = classNames('todo', {
     todoCompleted: completed,
-  });
-  const classNameTodoName = classNames('todoName', {
-    todoNameCompleted: completed,
   });
 
   return (
     <li className={classNameTodo}>
       <div className="todoBody">
         <TodoCompleteCheckbox todo={todo} />
-        <div className={classNameTodoName}>{name}</div>
+        <TodoName todo={todo} />
         <TodoRemoveButton todoId={todoId} />
       </div>
 
