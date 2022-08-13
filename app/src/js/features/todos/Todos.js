@@ -48,13 +48,17 @@ const TodoName = ({ todo }) => {
 
   const handleChangeNameSave = () => {
     setStatusChange('idle');
-    dispatchUpdateTodo();
+    if (todoName !== name) {
+      dispatchUpdateTodo();
+    }
   };
 
   const handleChangeNameSaveClick = ({ code, keyCode }) => {
     if (code === 'Enter' || keyCode === '13') {
       setStatusChange('idle');
-      dispatchUpdateTodo();
+      if (todoName !== name) {
+        dispatchUpdateTodo();
+      }
     }
   };
 
