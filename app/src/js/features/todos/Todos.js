@@ -7,10 +7,12 @@ import { Spinner } from '../../components/Spinner';
 import {
   fetchTodos,
   updateTodo,
+  removeTodo,
   todoUpdatingId,
   selectTodoById,
   selectTodosIds,
   resetUpdatingStatus,
+  resetRemovingStatus,
 } from './todoSlice';
 
 const TodoCompleteCheckbox = ({ todo }) => {
@@ -50,6 +52,24 @@ const TodoCompleteCheckbox = ({ todo }) => {
   );
 };
 
+const TodoRemoveButton = ({ todoId }) => {
+  const dispatch = useDispatch();
+
+  const handleRemove = () => {
+    const result = dispatch(removeTodo({ id: todoId })).unwrap();
+    result.then(() => {
+      dispatch(resetRemovingStatus());
+    });
+  };
+  return (
+    <div className="todoRemoveWrapper">
+      <button className="todoRemove" onClick={handleRemove}>
+        <span className="textHide">Remove</span>
+      </button>
+    </div>
+  );
+};
+
 const TodoItem = ({ todoId }) => {
   const todo = useSelector((state) => selectTodoById(state, todoId));
   const { todo: name, completed } = todo;
@@ -61,18 +81,12 @@ const TodoItem = ({ todoId }) => {
     todoNameCompleted: completed,
   });
 
-  console.log(todoId);
-
   return (
     <li className={classNameTodo}>
       <div className="todoBody">
         <TodoCompleteCheckbox todo={todo} />
         <div className={classNameTodoName}>{name}</div>
-        <div className="todoRemoveWrapper">
-          <button className="todoRemove">
-            <span className="textHide">Remove</span>
-          </button>
-        </div>
+        <TodoRemoveButton todoId={todoId} />
       </div>
 
       <div className="todoFooter">

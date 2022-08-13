@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const URL_FETCH_ALL = 'https://dummyjson.com/todos';
 const URL_UPDATE_TODO = 'https://dummyjson.com/todos/';
+const URL_REMOVE_TODO = 'https://dummyjson.com/todos/';
 
 const IDLE_STATUS = 'idle';
 const LOADING_STATUS = 'loading';
@@ -28,6 +29,13 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
 export const updateTodo = createAsyncThunk('todos/updateTodo', async (data) => {
   const { id, ...restData } = data;
   const response = await axios.put(`${URL_UPDATE_TODO}/${id}`, restData);
+
+  return response.data;
+});
+
+export const removeTodo = createAsyncThunk('todos/removeTodo', async (data) => {
+  const { id } = data;
+  const response = await axios.delete(`${URL_REMOVE_TODO}/${id}`);
 
   return response.data;
 });
@@ -77,6 +85,22 @@ const todosSlice = createSlice({
       })
       .addCase(updateTodo.rejected, (state, action) => {
         state.statusUpdate = FAILED_STATUS;
+        state.error = action.error.message;
+      })
+      .addCase(removeTodo.pending, (state) => {
+        state.statusRemove = LOADING_STATUS;
+      })
+      .addCase(removeTodo.fulfilled, (state, action) => {
+        state.statusRemove = SUCCESS_STATUS;
+
+        const {
+          payload: { id },
+        } = action;
+
+        todosAdapter.removeOne(state, id);
+      })
+      .addCase(removeTodo.rejected, (state, action) => {
+        state.statusRemove = FAILED_STATUS;
         state.error = action.error.message;
       });
   },
