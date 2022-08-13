@@ -15,6 +15,77 @@ import {
   resetRemovingStatus,
 } from './todoSlice';
 
+const TodoName = ({ todo }) => {
+  const dispatch = useDispatch();
+  const { id: todoId, todo: todoName, completed, userId } = todo;
+  const updatingStatus = useSelector((state) => state.todos.statusUpdate);
+
+  const [name, setName] = useState(todoName);
+  const [statusChange, setStatusChange] = useState('idle');
+
+  const inputNameRef = useRef(null);
+
+  const classNameTodoName = classNames('todoName', {
+    todoNameCompleted: completed,
+  });
+
+  const dispatchUpdateTodo = () => {
+    const result = dispatch(updateTodo({ id: todoId, todo: name, userId, completed })).unwrap();
+    dispatch(todoUpdatingId(todoId));
+
+    result.then(() => {
+      dispatch(resetUpdatingStatus());
+    });
+  };
+
+  const handleChangeName = ({ target: { value } }) => {
+    setName(value);
+  };
+
+  const handleClickName = () => {
+    setStatusChange('editing');
+  };
+
+  const handleChangeNameSave = () => {
+    setStatusChange('idle');
+    dispatchUpdateTodo();
+  };
+
+  const handleChangeNameSaveClick = ({ code, keyCode }) => {
+    if (code === 'Enter' || keyCode === '13') {
+      setStatusChange('idle');
+      dispatchUpdateTodo();
+    }
+  };
+
+  useEffect(() => {
+    if (statusChange === 'editing') {
+      inputNameRef.current.select();
+    }
+  }, [statusChange]);
+
+  return (
+    <>
+      {statusChange === 'editing' && updatingStatus === 'idle' && (
+        <input
+          className="todoChangeInputName"
+          type="text"
+          value={name}
+          onChange={handleChangeName}
+          onBlur={handleChangeNameSave}
+          onKeyDown={handleChangeNameSaveClick}
+          ref={inputNameRef}
+        />
+      )}
+      {statusChange === 'idle' && (
+        <div className={classNameTodoName} onClick={handleClickName}>
+          {name}
+        </div>
+      )}
+    </>
+  );
+};
+
 const TodoCompleteCheckbox = ({ todo }) => {
   const dispatch = useDispatch();
   const todoStatusUpdate = useSelector((state) => state.todos.statusUpdate);
@@ -49,64 +120,6 @@ const TodoCompleteCheckbox = ({ todo }) => {
         </label>
       )}
     </div>
-  );
-};
-
-const TodoName = ({ todo }) => {
-  const dispatch = useDispatch();
-  const { todo: todoName, completed } = todo;
-  const [name, setName] = useState(todoName);
-  const [statusChange, setStatusChange] = useState('idle');
-
-  const inputNameRef = useRef(null);
-
-  const classNameTodoName = classNames('todoName', {
-    todoNameCompleted: completed,
-  });
-
-  const handleChangeName = ({ target: { value } }) => {
-    setName(value);
-  };
-
-  const handleClickName = () => {
-    setStatusChange('editing');
-  };
-
-  const handleChangeNameSave = () => {
-    setStatusChange('idle');
-  };
-
-  const handleChangeNameSaveClick = ({ code, keyCode }) => {
-    if (code === 'Enter' || keyCode === '13') {
-      setStatusChange('idle');
-    }
-  };
-
-  useEffect(() => {
-    if (statusChange === 'editing') {
-      inputNameRef.current.select();
-    }
-  }, [statusChange]);
-
-  return (
-    <>
-      {statusChange === 'editing' && (
-        <input
-          className="todoChangeInputName"
-          type="text"
-          value={name}
-          onChange={handleChangeName}
-          onBlur={handleChangeNameSave}
-          onKeyDown={handleChangeNameSaveClick}
-          ref={inputNameRef}
-        />
-      )}
-      {statusChange === 'idle' && (
-        <div className={classNameTodoName} onClick={handleClickName}>
-          {name}
-        </div>
-      )}
-    </>
   );
 };
 
