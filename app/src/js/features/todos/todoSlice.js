@@ -14,6 +14,7 @@ const initialState = todosAdapter.getInitialState({
   statusFetch: IDLE_STATUS,
   statusUpdate: IDLE_STATUS,
   statusRemove: IDLE_STATUS,
+  updatingTodoId: null,
   filteredTodosIds: [],
   error: null,
 });
@@ -35,6 +36,9 @@ const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
+    todoUpdatingId: (state, action) => {
+      state.updatingTodoId = action.payload;
+    },
     resetUpdatingStatus: (state) => {
       state.statusUpdate = IDLE_STATUS;
     },
@@ -84,7 +88,7 @@ export const {
   selectIds: selectTodosIds,
 } = todosAdapter.getSelectors((state) => state.todos);
 
-export const { resetUpdatingStatus, resetRemovingStatus } = todosSlice.actions;
+export const { todoUpdatingId, resetUpdatingStatus, resetRemovingStatus } = todosSlice.actions;
 
 export const selectTodosByUser = createSelector([selectAllTodos, (state, userId) => userId], (todos, userId) =>
   todos.filter((todo) => +todo.id === +userId),

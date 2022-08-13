@@ -4,27 +4,28 @@ import classNames from 'classnames';
 
 import { Spinner } from '../../components/Spinner';
 
-import { fetchTodos, updateTodo, selectTodoById, selectTodosIds, resetUpdatingStatus } from './todoSlice';
+import {
+  fetchTodos,
+  updateTodo,
+  todoUpdatingId,
+  selectTodoById,
+  selectTodosIds,
+  resetUpdatingStatus,
+} from './todoSlice';
 
-const TodoItem = ({ todoId }) => {
+const TodoCompleteCheckbox = ({ todo }) => {
   const dispatch = useDispatch();
-
   const todoStatusUpdate = useSelector((state) => state.todos.statusUpdate);
-  const todo = useSelector((state) => selectTodoById(state, todoId));
-  const { todo: name, completed, userId } = todo;
+  const todoUpdatingCurrentId = useSelector((state) => state.todos.updatingTodoId);
+  const { id: todoId, todo: name, completed, userId } = todo;
 
-  const classNameTodo = classNames('todo', {
-    todoCompleted: completed,
-  });
-  const classNameTodoName = classNames('todoName', {
-    todoNameCompleted: completed,
-  });
   const classNameTodoCheckbox = classNames('todoCheckBox', {
     todoCheckBoxCompleted: completed,
   });
 
   const handleCompleted = () => {
     const result = dispatch(updateTodo({ id: todoId, todo: name, userId, completed: !completed })).unwrap();
+    dispatch(todoUpdatingId(todoId));
 
     result.then(() => {
       dispatch(resetUpdatingStatus());
@@ -32,19 +33,40 @@ const TodoItem = ({ todoId }) => {
   };
 
   return (
+    <div className="todoCheckBoxWrapper">
+      {todoUpdatingCurrentId === todoId && todoStatusUpdate === 'loading' && <Spinner size="20px" />}
+      {(todoUpdatingCurrentId !== todoId || todoStatusUpdate === 'idle') && (
+        <label className={classNameTodoCheckbox} htmlFor={`todo-checkbox-${todoId}`}>
+          <input
+            type="checkbox"
+            className="todoCheckBoxInput"
+            id={`todo-checkbox-${todoId}`}
+            checked={completed}
+            onChange={handleCompleted}
+          />
+        </label>
+      )}
+    </div>
+  );
+};
+
+const TodoItem = ({ todoId }) => {
+  const todo = useSelector((state) => selectTodoById(state, todoId));
+  const { todo: name, completed } = todo;
+
+  const classNameTodo = classNames('todo', {
+    todoCompleted: completed,
+  });
+  const classNameTodoName = classNames('todoName', {
+    todoNameCompleted: completed,
+  });
+
+  console.log(todoId);
+
+  return (
     <li className={classNameTodo}>
       <div className="todoBody">
-        <div className="todoCheckBoxWrapper">
-          <label className={classNameTodoCheckbox} htmlFor={`todo-checkbox-${todoId}`}>
-            <input
-              type="checkbox"
-              className="todoCheckBoxInput"
-              id={`todo-checkbox-${todoId}`}
-              checked={completed}
-              onChange={handleCompleted}
-            />
-          </label>
-        </div>
+        <TodoCompleteCheckbox todo={todo} />
         <div className={classNameTodoName}>{name}</div>
         <div className="todoRemoveWrapper">
           <button className="todoRemove">
