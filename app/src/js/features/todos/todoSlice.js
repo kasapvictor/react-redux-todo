@@ -86,16 +86,13 @@ const todosSlice = createSlice({
       })
       .addCase(updateTodo.fulfilled, (state, action) => {
         state.statusUpdate = SUCCESS_STATUS;
-
-        const {
-          payload: { id, todo, completed },
-        } = action;
-        const foundTodo = state.entities[id];
-
-        if (foundTodo) {
-          foundTodo.completed = completed;
-          foundTodo.todo = todo;
-        }
+        todosAdapter.updateOne(state, {
+          id: action.payload.id,
+          changes: {
+            completed: action.payload.completed,
+            todo: action.payload.todo,
+          },
+        });
       })
       .addCase(updateTodo.rejected, (state, action) => {
         state.statusUpdate = FAILED_STATUS;
@@ -135,6 +132,7 @@ export const {
   filteredByCompleted,
 } = todosSlice.actions;
 
+/* FOR FILTER BY USER -- NOT USING */
 export const selectTodosByUser = createSelector([selectAllTodos, (state, userId) => userId], (todos, userId) =>
   todos.filter((todo) => +todo.id === +userId),
 );
