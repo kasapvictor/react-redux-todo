@@ -4,11 +4,11 @@ $color2: #ffffff;
 $color3: #0061df;
 $color4: #4ed192;
 $color5: #df0000;
-$color6: #FF6347FF;
+$color6: #ff6347ff;
 $colorMute: lighten($color1, 50);
 
 /* PADDING & MARGIN FACTOR */
-$factor: .4rem;
+$factor: 0.4rem;
 
 /* FONTS COLOR */
 $fontColorDefault: $color1;
@@ -29,7 +29,7 @@ $fontSizeBig: 2rem;
 $lineHeightDefault: 1.5;
 
 /* BORDER */
-$borderRadiusDefault: .4rem;
+$borderRadiusDefault: 0.4rem;
 $borderColorDefault: lighten($color1, 50);
 $borderColorActiveDefault: lighten($color3, 10);
 

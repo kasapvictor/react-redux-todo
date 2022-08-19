@@ -16,31 +16,11 @@
   height: 5em;
   border-radius: 50%;
   background: $color3;
-  background: -moz-linear-gradient(
-      left,
-      $color3 10%,
-      rgba(128, 0, 255, 0) 42%
-  );
-  background: -webkit-linear-gradient(
-      left,
-      $color3 10%,
-      rgba(128, 0, 255, 0) 42%
-  );
-  background: -o-linear-gradient(
-      left,
-      $color3 10%,
-      rgba(128, 0, 255, 0) 42%
-  );
-  background: -ms-linear-gradient(
-      left,
-      $color3 10%,
-      rgba(128, 0, 255, 0) 42%
-  );
-  background: linear-gradient(
-      to right,
-      $color3 10%,
-      rgba(128, 0, 255, 0) 42%
-  );
+  background: -moz-linear-gradient(left, $color3 10%, rgba(128, 0, 255, 0) 42%);
+  background: -webkit-linear-gradient(left, $color3 10%, rgba(128, 0, 255, 0) 42%);
+  background: -o-linear-gradient(left, $color3 10%, rgba(128, 0, 255, 0) 42%);
+  background: -ms-linear-gradient(left, $color3 10%, rgba(128, 0, 255, 0) 42%);
+  background: linear-gradient(to right, $color3 10%, rgba(128, 0, 255, 0) 42%);
   position: relative;
   -webkit-animation: load3 1.4s infinite linear;
   animation: load3 1.4s infinite linear;

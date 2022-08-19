@@ -17,7 +17,7 @@
 
 .todoNameCompleted {
   text-decoration: line-through;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .todoBody {
@@ -31,7 +31,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  @include mr($size: 4)
+  @include mr($size: 4);
 }
 
 .todoCheckBox {
@@ -58,9 +58,9 @@
   justify-content: center;
   margin-left: auto;
   border-radius: 50%;
-  border: 2px solid lighten($colorError, 5);;
+  border: 2px solid lighten($colorError, 5);
   background-color: lighten($colorError, 10);
-  opacity: .5;
+  opacity: 0.5;
   width: 20px;
   height: 20px;
 
@@ -78,12 +78,12 @@
   position: relative;
   color: $colorError;
   cursor: pointer;
-  opacity: .5;
+  opacity: 0.5;
   cursor: pointer;
 }
 
 .todoMeta {
-  @include pl($size: 12)
+  @include pl($size: 12);
 }
 
 .todoChangeInputName {
@@ -136,7 +136,6 @@
 }
 
 .todoCompletedButton {
-
   background-color: $color4;
   border-color: darken($color4, 15);
   &:hover {
