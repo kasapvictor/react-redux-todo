@@ -1,26 +1,11 @@
-# About
-
-Example ToDo App (React, Redux)
-
-### Includes packages
-
-- typescript
-- babel
-- axios
-- pug
-- scss
-- autoprefixer
-- lodash
-- yup
-- prettier
-- eslint
-- react
-- redux-toolkit
 
 ### Links
+- Todos fetch from- https://dummyjson.com/docs/todos
 - Webpack watch options - https://webpack.js.org/configuration/watch
 - Webpack web server - https://webpack.js.org/configuration/dev-server
-- MicroModal - https://micromodal.vercel.app/#configuration
+- Emotion - https://emotion.sh/docs
+- Font source - https://fontsource.org
+- Material Icons - https://fonts.google.com/icons?icon.style=Rounded
 
 ### Process 
 1. `make build`

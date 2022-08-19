@@ -1,13 +1,17 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+
+import { createRoot } from 'react-dom/client';
+
+import '@fontsource/merriweather';
+import '@fontsource/merriweather/900.css';
+import '@fontsource/merriweather/300.css';
+import '@fontsource/material-icons-rounded';
 
 import '../scss/styles.scss';
 
 import { App } from './App';
 import { store } from './store';
-
-// TODO dummy https://dummyjson.com/docs/todos
 
 const init = () => {
   const container = document.getElementById('root-container');

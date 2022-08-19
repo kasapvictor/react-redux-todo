@@ -54,15 +54,8 @@
 }
 
 .todoRemoveWrapper {
-  display: flex;
-  justify-content: center;
   margin-left: auto;
-  border-radius: 50%;
-  border: 2px solid lighten($colorError, 5);
-  background-color: lighten($colorError, 10);
   opacity: 0.5;
-  width: 20px;
-  height: 20px;
 
   &:hover {
     opacity: 1;
@@ -78,7 +71,7 @@
   position: relative;
   color: $colorError;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 1;
   cursor: pointer;
 }
 

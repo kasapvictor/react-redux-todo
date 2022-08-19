@@ -1,9 +1,13 @@
+/** @jsx jsx */
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { jsx } from '@emotion/react';
 import classNames from 'classnames';
 
 import { Spinner } from '../../components/Spinner';
 
+import { todosHeader } from './styles';
 import {
   fetchTodos,
   updateTodo,
@@ -52,7 +56,7 @@ const TodosFilter = () => {
   });
 
   return (
-    <div className="todosHeader">
+    <div css={todosHeader}>
       <div className="todoFiltersButtons">
         <button className={classNameFilterButtonClear} onClick={handleFilterClear}>
           All
@@ -193,6 +197,7 @@ const TodoRemoveButton = ({ todoId }) => {
     <div className="todoRemoveWrapper">
       <button className="todoRemove" onClick={handleRemove}>
         <span className="textHide">Remove</span>
+        <span className="material-icons-rounded">cancel</span>
       </button>
     </div>
   );
