@@ -40,9 +40,7 @@ rules:
   "no-console":
     - "error"
   "import/extensions": 0
-  "import/no-extraneous-dependencies":
-    - "error"
-    - "devDependencies": true
+  "import/no-extraneous-dependencies": 0
   "object-curly-newline": 0
   "no-restricted-exports": 0
   "implicit-arrow-linebreak": 0

@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { jsx } from '@emotion/react';
+import { Button } from '@react-redux-todos/core-button';
 import classNames from 'classnames';
 
 import { Spinner } from '../../components/Spinner';
@@ -57,6 +57,7 @@ const TodosFilter = () => {
 
   return (
     <div css={todosHeader}>
+      <Button>SOME BUTTON</Button>
       <div className="todoFiltersButtons">
         <button className={classNameFilterButtonClear} onClick={handleFilterClear}>
           All

@@ -1,0 +1,5 @@
+{
+  "name": "@react-redux-todos/core-button",
+  "version": "0.1.0",
+  "main": "./index.js"
+}
