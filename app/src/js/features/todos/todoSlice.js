@@ -1,18 +1,17 @@
+import {
+  FAILED_STATUS,
+  FILTERED_BY_ACTIVE,
+  FILTERED_BY_ALL,
+  FILTERED_BY_COMPLETED,
+  IDLE_STATUS, LOADING_STATUS,
+  SUCCESS_STATUS,
+} from '@react-redux-todos/core-constants';
 import { createSlice, createAsyncThunk, createSelector, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const URL_FETCH_ALL = 'https://dummyjson.com/todos';
 const URL_UPDATE_TODO = 'https://dummyjson.com/todos/';
 const URL_REMOVE_TODO = 'https://dummyjson.com/todos/';
-
-const IDLE_STATUS = 'idle';
-const LOADING_STATUS = 'loading';
-const SUCCESS_STATUS = 'succeeded';
-const FAILED_STATUS = 'failed';
-
-const FILTERED_BY_ALL = 'all';
-const FILTERED_BY_ACTIVE = 'active';
-const FILTERED_BY_COMPLETED = 'completed';
 
 const todosAdapter = createEntityAdapter();
 const initialState = todosAdapter.getInitialState({

@@ -1,0 +1,5 @@
+{
+  "name": "@react-redux-todos/core-components-spinner",
+  "version": "0.1.0",
+  "main": "./index.js"
+}

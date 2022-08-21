@@ -1,6 +1,6 @@
 /* FONTS */
 * {
-  font-family: 'Merriweather';
+  font-family: 'Merriweather', sans-serif;
   font-weight: 300;
 }
 
@@ -9,7 +9,7 @@ h1 {
 }
 
 /* COLORS */
-$color1: #232323;
+$color1: rgba(35, 35, 35, 0.45);
 $color2: #ffffff;
 $color3: #0061df;
 $color4: #4ed192;

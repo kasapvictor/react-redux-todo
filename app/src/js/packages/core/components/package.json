@@ -1,5 +1,5 @@
 {
-  "name": "@react-redux-todos/core-button",
+  "name": "@react-redux-todos/core-components",
   "version": "0.1.0",
   "main": "./index.js"
 }
