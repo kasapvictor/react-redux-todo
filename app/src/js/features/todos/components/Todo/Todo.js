@@ -1,12 +1,13 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import classNames from 'classnames';
+import { FILTERED_BY_ALL, FILTERED_BY_ACTIVE, FILTERED_BY_COMPLETED } from '@react-redux-todos/core-constants';
 
-import { CompleteCheckbox } from './CompletedCheckbox';
-import { Name } from './Name';
-import { RemoveButton } from './RemoveButton';
-import { selectTodoById } from './todoSlice';
+import { selectTodoById } from '../../todoSlice';
+import { CompleteCheckbox, Name, ButtonRemove } from '../index';
+
+import { todoCss, todoCompletedCss, todoBody } from './styles';
 
 export const Todo = ({ todoId }) => {
   const filteredBy = useSelector((state) => state.todos.filteredBy);
@@ -14,28 +15,26 @@ export const Todo = ({ todoId }) => {
   const { completed } = todo;
 
   const todoItem = {
-    all: todo,
-    active: !completed ? todo : null,
-    completed: completed ? todo : null,
+    [FILTERED_BY_ALL]: todo,
+    [FILTERED_BY_ACTIVE]: !completed ? todo : null,
+    [FILTERED_BY_COMPLETED]: completed ? todo : null,
   };
 
   const todoFiltered = todoItem[filteredBy];
 
-  const classNameTodo = classNames('todo', {
-    todoCompleted: completed,
-  });
+  const todoStyles = completed ? todoCss : todoCompletedCss;
 
   return (
     <>
       {todoFiltered && (
-        <li className={classNameTodo}>
-          <div className="todoBody">
+        <li css={todoStyles}>
+          <div css={todoBody}>
             <CompleteCheckbox todo={todoFiltered} />
-            <Name todo={todoFiltered} />
-            <RemoveButton todoId={todoId} />
+            <Name todo={todoFiltered}/>
+            <ButtonRemove todoId={todoId} />
           </div>
 
-          <div className="todoFooter">
+          <div>
             <div className="meta todoMeta">
               <span className="textSmall metaItem">ID: {todoId}</span>
               <span className="textSmall metaItem">USER ID: {todoFiltered.userId}</span>

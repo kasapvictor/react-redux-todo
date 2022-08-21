@@ -8,7 +8,7 @@ export const CheckboxComplete = ({ todoId, completed, onChange }) => {
     onChange();
   };
 
-  const styles = completed ? checkboxLabelCompletedCss : checkboxLabelCss;
+  const styles = completed ? checkboxLabelCss : checkboxLabelCompletedCss;
 
   return (
     <label css={styles} htmlFor={`todo-checkbox-${todoId}`}>

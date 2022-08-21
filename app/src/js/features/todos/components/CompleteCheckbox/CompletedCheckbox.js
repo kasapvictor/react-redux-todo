@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CheckboxComplete, Spinner } from '@react-redux-todos/core-components';
 import { IDLE_STATUS, LOADING_STATUS } from '@react-redux-todos/core-constants';
 
+import { resetUpdatingStatus, todoUpdatingId, updateTodo } from '../../todoSlice';
+
 import { checkboxWrapper } from './styles';
-import { resetUpdatingStatus, todoUpdatingId, updateTodo } from './todoSlice';
 
 export const CompleteCheckbox = ({ todo }) => {
   const dispatch = useDispatch();

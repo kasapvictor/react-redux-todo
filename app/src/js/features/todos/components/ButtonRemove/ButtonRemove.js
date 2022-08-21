@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ButtonRemove } from '@react-redux-todos/core-components-button-remove';
+import { ButtonRemove as ButtonRemoveEl } from '@react-redux-todos/core-components-button-remove';
 
-import { removeTodo, resetRemovingStatus } from './todoSlice';
+import { removeTodo, resetRemovingStatus } from '../../todoSlice';
 
-export const RemoveButton = ({ todoId }) => {
+export const ButtonRemove = ({ todoId }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
@@ -16,9 +16,9 @@ export const RemoveButton = ({ todoId }) => {
   };
 
   return (
-    <ButtonRemove onClick={handleRemove}>
+    <ButtonRemoveEl onClick={handleRemove}>
       <span className="textHide">Remove</span>
       <span className="material-icons-rounded">cancel</span>
-    </ButtonRemove>
+    </ButtonRemoveEl>
   );
 };
